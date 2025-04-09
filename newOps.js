@@ -139,3 +139,96 @@ team.forEach(({ name, surname, job, age }) => {
   console.log("Age:", age)
   console.log("************")
 })
+
+//!----  FUNCTIONLARDA DESTRUC. KULLANIMI ----
+
+const objGoster = function () {
+  return {
+    name: "Hazel",
+    surname: "Nut",
+    job: "team lead",
+    age: 40,
+  }
+}
+
+//* function'un dondurdugu obje dogrudan dest. yapilabilir
+let { name, surname, job, age } = objGoster()
+
+console.log(name, surname)
+console.log("Age:", ++age)
+
+//? Function parametresi
+
+const data = {
+  id: "123",
+  desc: "This is top secret information",
+  createdTime: "1900",
+}
+
+const printData = (data) => {
+  console.log(` ${data.id} - ${data.desc} - ${data.createdTime}`)
+}
+
+const printDataDestr = (data) => {
+  const { id, desc, createdTime } = data
+  console.log(` ${id} - ${desc} - ${createdTime}`)
+}
+
+const printDataDestrAir = ({ id, desc, createdTime }) => {
+  console.log(` ${id} - ${desc} - ${createdTime}`)
+}
+
+printData(data)
+printDataDestr(data)
+printDataDestrAir(data)
+
+//* =============================================
+//*  DESTRUCTURING (ARRAY)
+//* =============================================
+const people = ["Ali", "Veli", "Canan", "Can"]
+
+let ali = people[0]
+console.log(people)
+
+const [kisi1, kisi2, , kisi4] = people
+console.log(kisi1, kisi2, kisi4)
+
+//* ==============================================
+//*  REST (...)
+//* =============================================
+//? REST operatoru kullanici tarafindan girilen degerleri dizi
+//? icerisine konumlandirir. Cesitli kullanim alanlari vardir.
+
+//! 1- Bir dizi veya object'deki bazi degerlerden geri kalanlarini ayri dizi yada objelere kopyalanmasini saglayabilir.
+
+//?REST: Array
+const araclar = ["Kamyon", "Tır", "Kamyonet", "Araba", "ATV", "Minübüs"]
+
+const [arac1, arac2, arac3, , ...binekAraclar] = araclar
+
+console.log(arac1, arac2, arac3)
+console.log(binekAraclar)
+
+//?REST: Object
+
+const person = {
+  ad: "Hazel",
+  soyad: "Nut",
+  is: "team lead",
+  yas: 40,
+}
+
+const { ad, soyad, yas, ...geriKalanlar } = person
+console.log(geriKalanlar)
+
+//! 2- Bir fonksiyonun argumanlarini diziye cevirmek icin kullanilabilir.
+
+const topla = (a, b) => a + b
+console.log(topla(1, 5, 2, 7, 9))
+
+const toplam = (...sayilar) => {
+  return sayilar.reduce((a, b) => a + b)
+}
+console.log("TOPLAM:", toplam(1, 5, 2, 7, 9))
+
+//? REST (...) ile non-iterable olan sayilari iterable hale (diziye) cevirmiş olduk.
